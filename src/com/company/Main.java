@@ -1,26 +1,36 @@
 package com.company;
-
+import java.util.Scanner;
 public class Main {
 
+    static Scanner in = new Scanner(System.in);
+    static char[] alph = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
     public static void main(String[] args) {
-        char[] alph = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-        String toMask = "CDE"; //ABC
-        String masked = "";
-        for (int i =0; i< toMask.length(); i++)
-        {
-            char letter = toMask.charAt(i);
-            int idx = findIndex(alph,letter);
-            masked += alph[idx-2<0 ? alph.length - idx-2:idx-2];
-
-        }
-        System.out.println(toMask);
-        System.out.println(masked);
+        System.out.println("Enter word to encrypt");
+        String wordToEncrypt = in.nextLine();
+        System.out.println("Enter crypt word");
+        String cryptWord = in.nextLine();
+        encrypt crypt = new encrypt(wordToEncrypt, cryptWord);
+        System.out.println(crypt.encrypt());
+        System.out.println(crypt.decrypt());
     }
 
-    public static int findIndex(char[] arr, char target){
-        for (int i = 0; i < arr.length; i++)
-        {
-            if (arr[i] == target) {
+    public static String padRight(String s, int n) {
+        String res = "";
+        if(s.length() < n){
+            int i = 0;
+            while(res.length() != n){
+                res += s.charAt(i);
+                i = s.length() - 1 >= i + 1 ? i + 1 : 0;
+            }
+        }else{
+            res = s.substring(0, n);
+        }
+        return res;
+    }
+
+    public static int findIndex(char c) {
+        for(int i = 0; i < Main.alph.length; i++){
+            if(Main.alph[i] == c){
                 return i;
             }
         }
